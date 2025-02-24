@@ -1,17 +1,13 @@
+# Steps 6-11: Detailed Linux File Manipulation Tasks
 
-
-### 3. User Account Setup
+## Step 6: Creating Duplicated Names File
 ```bash
-sudo useradd -m -g users -G wheel DominikaX12
-sudo passwd DominikaX12
-sudo usermod -aG wheel DominikaX12
+# Duplicate the contents of imiona file twice
+cat ~/imiona ~/imiona > ~/imiona2
 ```
 
-## Task 1: File Creation and Manipulation
-
-### Create Initial Names File
-```bash
-cat > ~/imiona << EOF
+### Expected Result
+```
 Arek
 Szymon
 Jakub
@@ -21,83 +17,81 @@ Mela
 Ola
 Marcin
 Piotr
-EOF
+Patrycja
+Kinga
+Alan
+Arek
+Szymon
+Jakub
+Iga
+Ala
+Mela
+Ola
+Marcin
+Piotr
+Patrycja
+Kinga
+Alan
 ```
 
-### Append Additional Names
+## Step 7: Sorting and Unique Names
 ```bash
-echo "Patrycja" >> ~/imiona
-echo "Kinga" >> ~/imiona
-echo "Alan" >> ~/imiona
-```
-
-### Verify File Contents
-```bash
-cat ~/imiona
-```
-
-## Task 2: File Search and Error Redirection
-
-### Find Files with Error Handling
-```bash
-# Find and redirect errors
-find / -name "imiona" 2> ~/errors
-more ~/errors
-
-# Redirect stdout and stderr
-find / -name "imiona" 2>/dev/null 1>~/findResult
-cat ~/findResult
-
-# Combine stdout and stderr
-find / -name "imiona" >& ~/findResultsErrors
-```
-
-### Filter Search Results
-```bash
-cat ~/findResultsErrors | grep "/sys/"
-```
-
-## Task 3: File Duplication and Sorting
-
-### Create Duplicated Names File
-```bash
-cat ~/imiona ~/imiona > ~/imiona2
-```
-
-### Sort and Remove Duplicates
-```bash
+# Sort names alphabetically and remove duplicates
 sort ~/imiona2 | uniq
 ```
 
-## Task 4: File Counting and Transformation
+### Expected Output
+```
+Alan
+Ala
+Arek
+Iga
+Jakub
+Kinga
+Marcin
+Mela
+Ola
+Patrycja
+Piotr
+Szymon
+```
 
-### Count Files and Errors
+## Step 8: Counting Files and Errors
 ```bash
-# Count found files
+# Count files matching "imiona*"
 find / -name "imiona*" | wc -l
 
-# Count errors
+# Count generation of errors
 find / -name "imiona*" 2>&1 | wc -l
 ```
 
-### Text Transformation
+### Alternative Error Counting Method
 ```bash
-# Display first 5 lines of passwd
+# Redirect errors to a file and count
+find / -name "imiona*" 2> error_log
+wc -l error_log
+```
+
+## Step 9: Using tee Command
+```bash
+# Display first 5 lines of passwd and save to file
 head -n 5 /etc/passwd | tee ~/uzytkownicy
 
-# Convert names to uppercase
+# Verify file contents
+cat ~/uzytkownicy
+```
+
+### Uppercase Name Transformation
+```bash
+# Convert names to uppercase, display and save
 cat ~/imiona | tr '[:lower:]' '[:upper:]' | tee ~/IMIONA
 ```
 
-## Task 5: Archiving and Compression
-
-### Create Directory Structure
+## Step 10: Creating Directories and Archives
 ```bash
+# Create directory structure
 mkdir -p ~/Ksiazki/Podreczniki ~/Ksiazki/Literatura
-```
 
-### Create and Manage Archives
-```bash
 # Create tar archive
 tar -cvf ~/Ksiazki.tar ~/Ksiazki
 
@@ -111,21 +105,31 @@ mv ~/Ksiazki.tar.gz ~/Ksiazki.tar.gz
 # Decompress
 gunzip ~/Ksiazki.tar.gz
 tar -xvf ~/Ksiazki.tar
+```
 
+## Step 11: Multiple Archive Formats
+```bash
 # Create 7z archive
 7z a ~/Ksiazki.7z ~/Ksiazki
+
+# Remove original directory
+rm -rf ~/Ksiazki
+
+# Extract 7z archive
+7z x ~/Ksiazki.7z
 
 # Create zip archive
 zip -r ~/Ksiazki.zip ~/Ksiazki
 
-# Unzip
+# Unzip archive
 unzip ~/Ksiazki.zip
+
+# List contents to verify
+ls ~/Ksiazki
 ```
 
-### Create LS Output File
+## Step 12: Additional File Listing
 ```bash
+# Create file with detailed directory listing
 ls -ali > ~/pliki.txt
 ```
-
-
-
