@@ -1,10 +1,5 @@
 # Ćwiczenia z Metasymboli Powłoki Linux - Wyjaśnienie
 
-## Informacje o Uczniu
-- **Imię i Nazwisko**: Dominika Kuklińska
-- **Numer w Dzienniku**: 12
-- **Konto**: dominika12
-
 ## Ćwiczenia z Dopasowywania Wzorców
 
 ### Które pliki pasują do następujących wzorców:
